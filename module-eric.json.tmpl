@@ -1,0 +1,40 @@
+{
+  "machine": {
+    "gpu": 1,
+    "cpu": 1000,
+    "ram": 1000
+  },
+  "job": {
+    "APIVersion": "V1beta1",
+    "Spec": {
+      "Deal": {
+        "Concurrency": 1
+      },
+      "Docker": {
+        "Entrypoint": ["ollama", "run", "llama2"],
+        "EnvironmentVariables": [
+          "{{ if .Prompt }}PROMPT={{ .Prompt }}{{ end }}"
+        ],
+        "Image": "mavericb/ollama:llama3-8b-lilypad-v20240902194916"
+      },
+      "Engine": "Docker",
+      "Network": {
+        "Type": "None"
+      },
+      "Outputs": [
+        {
+          "Name": "outputs",
+          "Path": "/outputs"
+        }
+      ],
+      "PublisherSpec": {
+        "Type": "ipfs"
+      },
+      "Resources": {
+        "GPU": "1"
+      },
+      "Timeout": 1800,
+      "Verifier": "Noop"
+    }
+  }
+}
